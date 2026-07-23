@@ -5,6 +5,8 @@ import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "../redux/userSlice";
+import Sidebar from "./Sidebar";
+
 
 const Home = () => {
     const user = useSelector((state) => state.user.userData);
@@ -38,7 +40,11 @@ const Home = () => {
     };
 
     return (
-        <div className="flex h-screen items-center bg-black justify-center">
+        <div className="flex h-screen  text-white bg-black overflow-hidden">
+
+            <Sidebar></Sidebar>
+            {/* <ChatArea></ChatArea>
+            <Artifact></Artifact> */}
 
             {
                 !user && <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
