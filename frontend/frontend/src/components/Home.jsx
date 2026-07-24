@@ -6,6 +6,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "../redux/userSlice";
 import Sidebar from "./Sidebar";
+import ChatArea from "./ChatArea";
 
 
 const Home = () => {
@@ -43,6 +44,8 @@ const Home = () => {
         <div className="flex h-screen  text-white bg-black overflow-hidden">
 
             <Sidebar></Sidebar>
+            <ChatArea></ChatArea>
+
             {/* <ChatArea></ChatArea>
             <Artifact></Artifact> */}
 
