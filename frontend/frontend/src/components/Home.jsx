@@ -7,12 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "../redux/userSlice";
 import Sidebar from "./Sidebar";
 import ChatArea from "./ChatArea";
+import Artifact from "./Artifact";
 
 
 const Home = () => {
     const user = useSelector((state) => state.user.userData);
     const dispatch = useDispatch()
-    console.log("Redux User:", user);
     const [, setOpen] = useState(false);
 
     const handleLogin = async (token) => {
@@ -45,9 +45,9 @@ const Home = () => {
 
             <Sidebar></Sidebar>
             <ChatArea></ChatArea>
+            {/* <Artifact></Artifact> */}
 
-            {/* <ChatArea></ChatArea>
-            <Artifact></Artifact> */}
+            {/* {/* <ChatArea></ChatArea> */}
 
             {
                 !user && <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">

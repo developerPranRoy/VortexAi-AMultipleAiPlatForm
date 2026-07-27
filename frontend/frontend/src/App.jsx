@@ -12,7 +12,6 @@ useEffect(() => {
   const getuser = async () => {
     const data = await getCurrentUser();
 
-    console.log("Fetched User:", data);
 
     dispatch(setUserData(data));
   };
