@@ -80,7 +80,7 @@ vision
 - Output only the agent name.
 
 User Request:
-${state.prompt.at(-1).content}
+${state.prompt}
 `;
 
     const respose = await llm.invoke(prompt)
@@ -89,6 +89,6 @@ ${state.prompt.at(-1).content}
         ...state,
         agent: respose.content
             .trim()
-            .tolowerCase()
+            .toLowerCase()
     }
 }
