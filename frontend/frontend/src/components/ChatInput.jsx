@@ -26,7 +26,6 @@ const ChatInput = () => {
                 conversationId: selectedConversation?._id,
             };
 
-            // Add user message to Redux state
             dispatch(addMessage({ role: "user", content: prompt }))
 
             setValue("");
@@ -34,7 +33,6 @@ const ChatInput = () => {
             const data = await sendMessage(payload);
 
             if (data) {
-                // Add AI response to Redux state
                 dispatch(addMessage({ role: "assistant", content: data }))
             }
 
@@ -44,8 +42,6 @@ const ChatInput = () => {
     };
 
     const handleKeyDown = (e) => {
-        // Enter = Send
-        // Shift + Enter = New Line
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             handleSendMessage();
