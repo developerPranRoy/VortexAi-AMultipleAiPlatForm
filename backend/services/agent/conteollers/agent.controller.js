@@ -6,14 +6,14 @@ import redis from '../../../shared/redis/redis.js';
 export const agent = async (req, res) => {
 
     try {
-        const { prompt, conversationId } = req.body
+        const { prompt, conversationId, agent } = req.body
         await redis.del(`messages-${conversationId}`)
 
         await axios.post(`${process.env.CHAT_SERVICE}/save-message`, {
             conversationId, role: "user", content: prompt
         })
         const result = await graph.invoke({
-            prompt, conversationId
+            prompt, conversationId, agent
         })
 
         const response = result.aiResponse
@@ -23,7 +23,10 @@ export const agent = async (req, res) => {
             conversationId, role: "assistant", content: response
         })
 
-        return res.status(200).json(response)
+        return res.status(200).json({
+            answer: result.response,
+            images: result.images
+        })
 
     } catch (error) {
         console.error("Agent error name:", error.name)

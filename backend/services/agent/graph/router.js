@@ -3,6 +3,13 @@ import { getAiModel } from "../config/llmModel.js"
 
 export const router = async (state) => {
 
+    if (state.agent && state.agent !== "auto") {
+        return {
+            ...state,
+            agent: state.agent
+        }
+    }
+
     const llm = await getAiModel("router")
     const prompt = `
 You are an AI Router for a multi-agent system.
@@ -84,7 +91,6 @@ ${state.prompt}
 `;
 
     const respose = await llm.invoke(prompt)
-    console.log(respose);
     return {
         ...state,
         agent: respose.content

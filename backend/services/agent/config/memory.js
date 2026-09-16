@@ -28,8 +28,4 @@ export const addMessage = async (conversationId, role, content) => {
         messages.shift()
     }
     await redis.set(key, JSON.stringify(messages))
-
-
-
-
 }

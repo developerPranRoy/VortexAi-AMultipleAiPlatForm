@@ -5,9 +5,24 @@ import { getMemory } from "../config/memory.js";
 export const chat = async (state) => {
     const llm = await getAiModel("chat");
 
-    const history = await getMemory(state.conversationId)
+    const history = (await getMemory(state.conversationId)) ?? [];
+    const searchContext = state.searchResult ? `
+    Web Search Results:
+    ${JSON.stringify(state.searchResul)}
+    Answer the user using only the above search results.
+    `: ""
+
     const prompt = `
 You are Vortex AI, an intelligent AI assistant.
+${searchContext}
+if searchContext exists:
+-User search results to answer.
+-Do not mention internal tools.
+
+Rules:
+-For simple questions ,greatings and queries respond naturally in plain text.
+-For technical,educational,coding, or details topics, user clean Markdown.
+
 
 Always format your responses using Markdown.
 

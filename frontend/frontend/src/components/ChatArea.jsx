@@ -13,14 +13,16 @@ const ChatArea = () => {
     const dispatch = useDispatch()
     useEffect(() => {
         const getMsg = async () => {
+
             if (selectedConversation) {
+                if (selectedConversation.title == "New Chat") return;
                 const data = await getMessage(selectedConversation?._id)
                 dispatch(setMessages(data))
             }
 
         }
         getMsg()
-    }, [selectedConversation])
+    }, [selectedConversation?._id])
     return (
         <main className="flex-1 h-screen flex flex-col bg-[#0d1117]">
             <Nav></Nav>

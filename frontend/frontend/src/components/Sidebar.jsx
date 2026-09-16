@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getConversations } from "../../features/getConversations";
-import { createConversation } from "../../features/createConverssation";
+import { createConversation } from "../../features/createConversation";
 
 import {
     addConversation,
@@ -61,7 +61,10 @@ const Sidebar = () => {
                 <button onClick={() => {
                     setCollapse(false)
                 }} className="flex items-center justify-center w-9 h-9 rounded-xl text-slate-500 bg-transparent border-none cursor-pointer"><PanelRight></PanelRight></button>
-                <button onClick={handleCreateConversation} className="flex items-center justify-center w-9 h-9 rounded-xl text-slate-500 bg-transparent border-none cursor-pointer"><Plus size={17}></Plus>
+
+                <button
+                    onClick={() => dispatch(setSelectedConversation(null))}
+                    className="flex items-center justify-center w-9 h-9 rounded-xl text-slate-500 bg-transparent border-none cursor-pointer"><Plus size={17}></Plus>
                 </button>
 
                 {/* Conversation List */}
@@ -77,15 +80,15 @@ const Sidebar = () => {
                                     key={chat._id}
                                     onClick={() => dispatch(setSelectedConversation(chat))}
                                     className={`group w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors duration-150 ${selectedConversation?._id === chat._id
-                                            ? "bg-[#1f6feb] text-white"
-                                            : "text-zinc-300 hover:bg-[#161b22]"
+                                        ? "bg-[#1f6feb] text-white"
+                                        : "text-zinc-300 hover:bg-[#161b22]"
                                         }`}
                                 >
                                     <MessageSquare
                                         size={15}
                                         className={`shrink-0 ${selectedConversation?._id === chat._id
-                                                ? "text-white"
-                                                : "text-zinc-500 group-hover:text-zinc-300"
+                                            ? "text-white"
+                                            : "text-zinc-500 group-hover:text-zinc-300"
                                             }`}
                                     />
 
@@ -129,17 +132,16 @@ const Sidebar = () => {
                 </div>
 
                 <button
-                    onClick={handleCreateConversation}
+                    onClick={() => dispatch(setSelectedConversation(null))}
                     className="flex tc items-center justify-center w-7 h-7 rounded-lg text-slate-500 hover:text-slate-200 hover:bg-white/[0.05] transition-colors  duration-150 bg-transparent border-none cursor-pointer"
                 >
                     <PenSquare size={16} />
                 </button>
             </div>
 
-            {/* New Chat */}
             <div className="p-4">
                 <button
-                    onClick={handleCreateConversation}
+                    onClick={() => dispatch(setSelectedConversation(null))}
                     className="w-full text-blue-50 flex items-center justify-center gap-2 rounded-xl bg-blue-700 cursor-pointer hover:text-blue-600 py-3 font-medium hover:bg-zinc-200 transition"
                 >
                     <Plus size={16} />
@@ -147,7 +149,6 @@ const Sidebar = () => {
                 </button>
             </div>
 
-            {/* Conversation List */}
             <div className="flex-1 overflow-y-auto px-4 pb-4">
                 <p className="text-xs uppercase tracking-wider text-zinc-500 mb-3">
                     Recent Chats
