@@ -24,7 +24,7 @@ export const agent = async (req, res) => {
         })
 
         return res.status(200).json({
-            answer: result.response,
+            answer: result.aiResponse,
             images: result.images
         })
 

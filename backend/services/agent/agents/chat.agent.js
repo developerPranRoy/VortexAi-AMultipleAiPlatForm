@@ -8,7 +8,7 @@ export const chat = async (state) => {
     const history = (await getMemory(state.conversationId)) ?? [];
     const searchContext = state.searchResult ? `
     Web Search Results:
-    ${JSON.stringify(state.searchResul)}
+    ${JSON.stringify(state.searchResult)}
     Answer the user using only the above search results.
     `: ""
 
