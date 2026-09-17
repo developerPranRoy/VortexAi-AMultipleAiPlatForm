@@ -1,24 +1,16 @@
 import { Code2, FileText, Globe, ImageIcon, MessageSquare, Mic, Paperclip, Presentation, Send, Zap } from "lucide-react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import sendMessage from "../../features/sendMessage";
 import { addMessage } from "../redux/messageSlice";
-
 import { createConversation } from "../../features/createConversation";
 import saveMessage from "../../features/saveMessage";
-
-import {
-    addConversation,
-    setConvTilte,
-    setSelectedConversation,
-} from "../redux/conversationSlice";
-
+import { addConversation, setConvTilte, setSelectedConversation, } from "../redux/conversationSlice";
 import { updateConversation } from "../../features/updatecConversation";
 
 const ChatInput = () => {
     const [value, setValue] = useState("");
-    const [selectedAgent, setSelectedAgent]  = useState("Auto")
+    const [selectedAgent, setSelectedAgent] = useState("Auto")
 
     const { selectedConversation } = useSelector(
         (state) => state.conversation
@@ -72,11 +64,12 @@ const ChatInput = () => {
             console.log("AI response:", data);
             if (data) {
                 dispatch(addMessage({
-                    role: "assistant", content: data,
+                    role: "assistant", content: data.answer || "",
+                    images: data.images || []
                 })
                 );
                 await saveMessage({
-                    conversationId: conversation._id, role: "assistant", content: data,
+                    conversationId: conversation._id, role: "assistant", content: data.answer, images: data.images,
                 });
             }
 
