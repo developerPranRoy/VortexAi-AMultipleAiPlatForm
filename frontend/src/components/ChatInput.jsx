@@ -63,6 +63,11 @@ const ChatInput = () => {
 
             console.log("AI response:", data);
             if (data) {
+                // sync the active agent button to whichever agent actually handled the request
+                if (data.agent) {
+                    const matched = agents.find(a => a.id === data.agent);
+                    if (matched) setSelectedAgent(matched.label);
+                }
                 dispatch(addMessage({
                     role: "assistant", content: data.answer || "",
                     images: data.images || []

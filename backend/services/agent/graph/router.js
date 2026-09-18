@@ -91,10 +91,9 @@ ${state.prompt}
 `;
 
     const respose = await llm.invoke(prompt)
+    const agentName = respose.content.trim().toLowerCase().split("\n")[0].trim()
     return {
         ...state,
-        agent: respose.content
-            .trim()
-            .toLowerCase()
+        agent: agentName
     }
 }
