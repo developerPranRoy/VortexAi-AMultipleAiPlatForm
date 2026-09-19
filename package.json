@@ -1,0 +1,13 @@
+{
+  "name": "vortexai",
+  "version": "1.0.0",
+  "description": "VortexAi - Multi Agent AI Platform",
+  "license": "ISC",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently --names \"GATEWAY,AUTH,CHAT,AGENT,FRONTEND\" --prefix-colors \"cyan,green,yellow,magenta,blue\" \"npm run dev --prefix backend/gateway\" \"npm run dev --prefix backend/services/auth\" \"npm run dev --prefix backend/services/chat\" \"npm run dev --prefix backend/services/agent\" \"npm run dev --prefix frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  }
+}

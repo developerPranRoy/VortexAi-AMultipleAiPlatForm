@@ -45,7 +45,7 @@ const Home = () => {
 
             <Sidebar></Sidebar>
             <ChatArea></ChatArea>
-            {/* <Artifact></Artifact> */}
+            <Artifact></Artifact>
 
             {/* {/* <ChatArea></ChatArea> */}
 

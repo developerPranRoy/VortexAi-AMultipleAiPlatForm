@@ -7,9 +7,16 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "gateway": "npm --prefix gateway run dev",
+    "auth": "npm --prefix auth run dev",
+    "chat": "npm --prefix chat run dev",
+    "agent": "npm --prefix agent run dev",
+    "dev": "concurrently \"npm run gateway\" \"npm run auth\" \"npm run chat\" \"npm run agent\""
   },
   "dependencies": {
     "ioredis": "^5.11.1"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5"
   }
 }

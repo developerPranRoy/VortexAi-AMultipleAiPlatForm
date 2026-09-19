@@ -16,5 +16,8 @@
     "express": "^5.2.1",
     "express-http-proxy": "^2.1.2",
     "morgan": "^1.11.0"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5"
   }
 }
