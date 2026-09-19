@@ -11,11 +11,11 @@ export const codingAgent = async (state) => {
             User Request: ${state.prompt}
             
             `)
-        const intent = intentRes.content.trim();
+        const intent = intentRes.content.trim().toUpperCase().split(/\s+/)[0];
         if (!intent) {
             throw new Error("Unable to determine intent from user prompt.");
         }
-        if (intent == "CODE_GENERATION") {
+        if (intent.includes("CODE_GENERATION")) {
             const prompt = ` You are VortexAi agent. 
             Generate the requested project.
             Default stact:HTMl, CSS, JS, React, Nodejs, Express, MongoDB
@@ -70,7 +70,15 @@ export const codingAgent = async (state) => {
 
             `
             const res = await llm.invoke(prompt)
-            const data = JSON.parse(res.content)
+
+            // strip markdown code fences the LLM may wrap around the JSON
+            const raw = res.content
+                .trim()
+                .replace(/^```(?:json)?\s*/i, "")
+                .replace(/\s*```$/, "")
+                .trim()
+
+            const data = JSON.parse(raw)
             return {
                 ...state,
                 aiResponse: "Code Geneterated Successfully",
@@ -78,7 +86,8 @@ export const codingAgent = async (state) => {
                     {
                         id: Date.now(),
                         type: "Project",
-                        files: data.files || []
+                        files: data.files || [],
+                        title: state.prompt || "Untitled Project"
                     }
                 ]
             }
