@@ -4,6 +4,7 @@ services:
     name: vortexai-redis
     plan: free
     maxmemoryPolicy: noeviction
+    ipAllowList: []
 
   # ── Auth Service ──────────────────────────────────────────────────
   - type: web
