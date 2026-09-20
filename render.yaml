@@ -1,0 +1,115 @@
+services:
+  # ── Redis ─────────────────────────────────────────────────────────
+  - type: redis
+    name: vortexai-redis
+    plan: free
+    maxmemoryPolicy: noeviction
+
+  # ── Auth Service ──────────────────────────────────────────────────
+  - type: web
+    name: vortexai-auth
+    runtime: node
+    rootDir: backend/services/auth
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URL
+        sync: false
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: vortexai-redis
+          property: connectionString
+      - key: FIREBASE_PROJECT_ID
+        sync: false
+      - key: FIREBASE_PRIVATE_KEY_ID
+        sync: false
+      - key: FIREBASE_PRIVATE_KEY
+        sync: false
+      - key: FIREBASE_CLIENT_EMAIL
+        sync: false
+      - key: FIREBASE_CLIENT_ID
+        sync: false
+
+  # ── Chat Service ──────────────────────────────────────────────────
+  - type: web
+    name: vortexai-chat
+    runtime: node
+    rootDir: backend/services/chat
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URL
+        sync: false
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: vortexai-redis
+          property: connectionString
+
+  # ── Agent Service ─────────────────────────────────────────────────
+  - type: web
+    name: vortexai-agent
+    runtime: node
+    rootDir: backend/services/agent
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URL
+        sync: false
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: vortexai-redis
+          property: connectionString
+      - key: CHAT_SERVICE
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: TAVILY_API_KEY
+        sync: false
+      - key: GOOGLE_API_KEY
+        sync: false
+
+  # ── Gateway ───────────────────────────────────────────────────────
+  - type: web
+    name: vortexai-gateway
+    runtime: node
+    rootDir: backend/gateway
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: FRONTEND_URL
+        sync: false
+      - key: AUTH_SERVICE_URL
+        sync: false
+      - key: CHAT_SERVICE_URL
+        sync: false
+      - key: AGENT_SERVICE_URL
+        sync: false
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: vortexai-redis
+          property: connectionString
+
+  # ── Frontend ──────────────────────────────────────────────────────
+  - type: web
+    name: vortexai-frontend
+    runtime: node
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: VITE_API_URL
+        sync: false
