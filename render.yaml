@@ -9,9 +9,8 @@ services:
   - type: web
     name: vortexai-auth
     runtime: node
-    rootDir: backend/services/auth
-    buildCommand: npm install
-    startCommand: npm start
+    buildCommand: cd backend/services/auth && npm install
+    startCommand: cd backend/services/auth && node index.js
     envVars:
       - key: PORT
         value: 10000
@@ -37,9 +36,8 @@ services:
   - type: web
     name: vortexai-chat
     runtime: node
-    rootDir: backend/services/chat
-    buildCommand: npm install
-    startCommand: npm start
+    buildCommand: cd backend/services/chat && npm install
+    startCommand: cd backend/services/chat && node index.js
     envVars:
       - key: PORT
         value: 10000
@@ -55,9 +53,8 @@ services:
   - type: web
     name: vortexai-agent
     runtime: node
-    rootDir: backend/services/agent
-    buildCommand: npm install
-    startCommand: npm start
+    buildCommand: cd backend/services/agent && npm install
+    startCommand: cd backend/services/agent && node index.js
     envVars:
       - key: PORT
         value: 10000
@@ -83,9 +80,8 @@ services:
   - type: web
     name: vortexai-gateway
     runtime: node
-    rootDir: backend/gateway
-    buildCommand: npm install
-    startCommand: npm start
+    buildCommand: cd backend/gateway && npm install
+    startCommand: cd backend/gateway && node index.js
     envVars:
       - key: PORT
         value: 10000
@@ -107,9 +103,8 @@ services:
   - type: web
     name: vortexai-frontend
     runtime: node
-    rootDir: frontend
-    buildCommand: npm install && npm run build
-    startCommand: npm start
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npx serve -s dist -l 10000
     envVars:
       - key: VITE_API_URL
         sync: false
