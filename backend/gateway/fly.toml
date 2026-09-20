@@ -1,0 +1,18 @@
+app = "vortexai-gateway"
+primary_region = "sin"
+
+[build]
+  dockerfile = "Dockerfile"
+  # build context is backend/ — run: flyctl deploy from backend/gateway with --config fly.toml
+
+[http_service]
+  internal_port = 10000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[vm]]
+  memory = "256mb"
+  cpu_kind = "shared"
+  cpus = 1
