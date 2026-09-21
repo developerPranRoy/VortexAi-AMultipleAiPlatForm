@@ -32,9 +32,8 @@ export const getAiModel = async (agent) => {
         case "chat": return groq;
         case "search": return groq;
         case "coding": return openRouter;
-        // case "search": return grok;
-        // case "search": return grok;
-        // case "search": return grok;
-        default: return groq
+        case "image": return openRouter;
+        case "router": return groq;
+        default: return groq;
     }
 }
